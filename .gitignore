@@ -1,0 +1,74 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swm
+
+# Flutter/Dart/Pub related
+**/doc/api/
+/packages
+.pipfile
+*.dart_tool
+.dart_tool/
+.packages
+pubspec.lock
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-versions
+
+# Build related
+build/
+**/build/
+
+# iOS related
+**/DerivedData/
+**/flutter_export_environment.sh
+**/Pods/
+**/Podfile.lock
+**/*.pbxuser
+**/*.mode1v3
+**/*.mode2v3
+**/xcuserdata/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/engine
+**/ios/Flutter/flutter_assets
+**/ios/ServiceDefinitions.json
+*.xccheckout
+*.xcscmblueprint
+ios/Runner.xcworkspace/
+
+# Android related
+**/local.properties
+**/.gradle
+**/.idea
+**/app/*.iml
+**/app/app.iml
+*.hprof
+
+# VS Code related
+.vscode/
+
+# IntelliJ related
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Web related
+*.dart_tool/
+*.packages
+.pub/
+build/
+.dockerignore
+node_modules/
+.terraform/
