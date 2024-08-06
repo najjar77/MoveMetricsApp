@@ -72,3 +72,6 @@ build/
 .dockerignore
 node_modules/
 .terraform/
+
+# Firebase key
+/lib/firebase_options.dart
