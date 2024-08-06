@@ -73,5 +73,9 @@ build/
 node_modules/
 .terraform/
 
+# Firebase configuration
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+
 # Firebase key
 /lib/firebase_options.dart
