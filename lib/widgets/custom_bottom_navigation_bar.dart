@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int selectedIndex;
-  final Function(int) onItemTapped;
+  final ValueChanged<int> onItemTapped; // Callback für den Tab-Wechsel
 
   CustomBottomNavigationBar({
     required this.selectedIndex,
@@ -31,7 +31,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
         ),
       ],
       currentIndex: selectedIndex,
-      selectedItemColor: Colors.blue,
+      selectedItemColor: Colors.green,
       unselectedItemColor: Colors.grey,
       onTap: onItemTapped,
     );

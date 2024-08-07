@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       onGenerateRoute: AppRouter.generateRoute,
-      initialRoute: '/',
+      initialRoute: '/',  // Setze die initiale Route auf den LoginScreen
     );
   }
 }

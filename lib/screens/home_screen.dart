@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../network/authentication_service.dart';
-import '../widgets/custom_bottom_navigation_bar.dart'; // Importiere das neue Widget
+import '../widgets/custom_bottom_navigation_bar.dart'; // Importiere das benutzerdefinierte Widget
+import 'profile_screen.dart';
+import 'statistic_screen.dart';
+import 'list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -10,11 +13,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Center(child: Text('Home Screen', style: TextStyle(fontSize: 24))),
-    Center(child: Text('Liste Screen', style: TextStyle(fontSize: 24))),
-    Center(child: Text('Statistik Screen', style: TextStyle(fontSize: 24))),
-    Center(child: Text('Profil Screen', style: TextStyle(fontSize: 24))),
+  // Liste der Bildschirme, die in der Navigationsleiste verfügbar sind
+  final List<Widget> _screens = [
+    HomeContent(),
+    ListScreen(),
+    StatisticScreen(),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -32,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Move Metrics'),
+        title: Text('Move Metrics App'),
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
@@ -40,10 +44,22 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: _widgetOptions.elementAt(_selectedIndex),
+      body: _screens[_selectedIndex],  // Anzeige des aktuell ausgewählten Bildschirms
       bottomNavigationBar: CustomBottomNavigationBar(
         selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
+        onItemTapped: _onItemTapped,  // Callback zum Wechseln der Tabs
+      ),
+    );
+  }
+}
+
+class HomeContent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Willkommen auf der Startseite!',
+        style: TextStyle(fontSize: 24),
       ),
     );
   }
