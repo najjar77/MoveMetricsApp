@@ -1,38 +1,27 @@
 import 'package:flutter/material.dart';
-import '../network/authentication_service.dart';  // Aktualisierte Import-Pfad
+import '../network/authentication_service.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/custom_button.dart';
 
-class LoginScreen extends StatefulWidget {
+class SignupScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignupScreenState createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _login() async {
+  void _signup() async {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    bool success = await AuthenticationService().signIn(email, password);
+    bool success = await AuthenticationService().signUp(email, password);
     if (success) {
       Navigator.pushReplacementNamed(context, '/home');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Login failed. Please try again.')),
-      );
-    }
-  }
-
-  void _loginWithGoogle() async {
-    bool success = await AuthenticationService().signInWithGoogle();
-    if (success) {
-      Navigator.pushReplacementNamed(context, '/home');
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Google login failed. Please try again.')),
+        SnackBar(content: Text('Signup failed. Please try again.')),
       );
     }
   }
@@ -41,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: Text('Sign Up'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -59,20 +48,15 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 20),
             CustomButton(
-              onPressed: _login,
-              text: 'Login',
-            ),
-            SizedBox(height: 10),
-            CustomButton(
-              onPressed: _loginWithGoogle,
-              text: 'Login with Google',
+              onPressed: _signup,
+              text: 'Sign Up',
             ),
             SizedBox(height: 10),
             TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/signup');
+                Navigator.pushNamed(context, '/');
               },
-              child: Text('Don\'t have an account? Sign up'),
+              child: Text('Already have an account? Login'),
             ),
           ],
         ),
