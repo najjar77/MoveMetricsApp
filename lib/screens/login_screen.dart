@@ -43,15 +43,22 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: Text('Login'),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Logo oben in der Mitte platzieren
+            Image.asset(
+              'assets/MMLogo2.png',
+              height: 150, // Höhe des Logos anpassen
+            ),
+            SizedBox(height: 130), // Abstand zwischen Logo und Textfeldern
             CustomTextField(
               controller: _emailController,
               labelText: 'Email',
             ),
+            SizedBox(height: 16),
             CustomTextField(
               controller: _passwordController,
               labelText: 'Password',
@@ -62,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: _login,
               text: 'Login',
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 70),
             CustomButton(
               onPressed: _loginWithGoogle,
               text: 'Login with Google',
