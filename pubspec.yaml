@@ -31,3 +31,6 @@ flutter:
 
   assets:
     - assets/
+    - assets/Avatar1.png
+    - assets/Avatar2.png
+

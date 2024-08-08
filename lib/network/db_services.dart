@@ -38,6 +38,19 @@ class DBServices {
     }
   }
 
+  // Benutzeravatar aktualisieren
+  Future<void> updateUserAvatar(String userId, String avatarUrl) async {
+    try {
+      await _firestore.collection('users').doc(userId).update({
+        'avatar': avatarUrl,
+      });
+
+      print('Benutzeravatar erfolgreich aktualisiert.');
+    } catch (e) {
+      print('Fehler beim Aktualisieren des Benutzeravatars: $e');
+    }
+  }
+
   // Abrufen von Benutzerdaten aus der users-Sammlung
   Future<Map<String, dynamic>?> fetchUserFromDatabase(String userId) async {
     try {
