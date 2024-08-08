@@ -104,6 +104,24 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "cloud_firestore",
+      "rootUri": "file:///Users/amiin/.pub-cache/hosted/pub.dev/cloud_firestore-5.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "cloud_firestore_platform_interface",
+      "rootUri": "file:///Users/amiin/.pub-cache/hosted/pub.dev/cloud_firestore_platform_interface-6.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "cloud_firestore_web",
+      "rootUri": "file:///Users/amiin/.pub-cache/hosted/pub.dev/cloud_firestore_web-4.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "code_builder",
       "rootUri": "file:///Users/amiin/.pub-cache/hosted/pub.dev/code_builder-4.10.0",
       "packageUri": "lib/",
@@ -548,7 +566,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-08-07T14:40:01.022351Z",
+  "generated": "2024-08-07T15:50:10.113723Z",
   "generator": "pub",
   "generatorVersion": "3.3.4"
 }

@@ -2,36 +2,50 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../stores/user_store.dart';
 import '../network/service_locator.dart';
+import '../network/db_services.dart'; // Importiere den DB-Service
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final UserStore userStore = getIt<UserStore>(); // Zugriff auf den UserStore
+  final UserStore userStore = getIt<UserStore>();
+  final DBServices dbServices = DBServices(); // Erstelle eine Instanz des DB-Service
 
   Future<bool> signIn(String email, String password) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-      await fetchCurrentUser(); // Benutzerinformationen nach dem Login abrufen
+      UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      User? user = userCredential.user;
+      if (user != null) {
+        // Überprüfe, ob der Benutzer bereits in der Datenbank vorhanden ist
+        bool userExists = await dbServices.isUserInDatabase(user.uid);
+        if (!userExists) {
+          await dbServices.saveUserToDatabase(user); // Speichere den Benutzer in der Datenbank
+        }
+        await fetchCurrentUser(); // Benutzerinformationen nach dem Login abrufen
+      }
       return true;
     } catch (e) {
-      print(e);
+      print('Fehler beim Anmelden: $e');
       return false;
     }
   }
 
   Future<bool> signUp(String email, String password) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-      await fetchCurrentUser(); // Benutzerinformationen nach der Registrierung abrufen
+      UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+      User? user = userCredential.user;
+      if (user != null) {
+        await dbServices.saveUserToDatabase(user); // Speichere den neuen Benutzer in der Datenbank
+        await fetchCurrentUser();
+      }
       return true;
     } catch (e) {
-      print(e);
+      print('Fehler bei der Registrierung: $e');
       return false;
     }
   }
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
-    await userStore.resetUserProfile(); // Benutzerinformationen zurücksetzen
+    await userStore.resetUserProfile();
   }
 
   User? get currentUser {
@@ -41,18 +55,29 @@ class AuthenticationService {
   Future<void> fetchCurrentUser() async {
     User? user = _firebaseAuth.currentUser;
     if (user != null) {
-      // Speichern der Benutzerinformationen im UserStore
-      String userId = user.uid;
-      String? username = user.displayName ?? user.email?.split('@')[0]; // Nutze den Email-Präfix als Fallback für den Benutzernamen
-      String avatar = user.photoURL ?? 'https://via.placeholder.com/150'; // Fallback-Bild
+      // Abrufen der Benutzerdaten aus der Datenbank
+      Map<String, dynamic>? userData = await dbServices.fetchUserFromDatabase(user.uid);
 
-      await userStore.saveUserProfile(userId, username!, avatar);
+      if (userData != null) {
+        // Speichern der Benutzerinformationen im UserStore
+        String userId = userData['userId'];
+        String username = userData['username'];
+        String avatar = userData['avatar'];
+
+        await userStore.saveUserProfile(userId, username, avatar);
+      } else {
+        // Fallback falls keine Daten gefunden wurden
+        String userId = user.uid;
+        String? username = user.displayName ?? user.email?.split('@')[0];
+        String avatar = user.photoURL ?? 'https://via.placeholder.com/150';
+
+        await userStore.saveUserProfile(userId, username!, avatar);
+      }
     }
   }
 
   Future<bool> signInWithGoogle() async {
     try {
-      // Google Sign-In Logik
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) return false;
 
@@ -63,11 +88,19 @@ class AuthenticationService {
         idToken: googleAuth.idToken,
       );
 
-      await _firebaseAuth.signInWithCredential(credential);
-      await fetchCurrentUser(); // Benutzerinformationen nach Google-Login abrufen
+      UserCredential userCredential = await _firebaseAuth.signInWithCredential(credential);
+      User? user = userCredential.user;
+      if (user != null) {
+        // Überprüfe, ob der Benutzer bereits in der Datenbank vorhanden ist
+        bool userExists = await dbServices.isUserInDatabase(user.uid);
+        if (!userExists) {
+          await dbServices.saveUserToDatabase(user); // Speichere den Benutzer in der Datenbank
+        }
+        await fetchCurrentUser(); // Benutzerinformationen nach dem Login abrufen
+      }
       return true;
     } catch (e) {
-      print(e);
+      print('Fehler bei der Google-Anmeldung: $e');
       return false;
     }
   }

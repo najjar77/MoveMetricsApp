@@ -6,7 +6,7 @@ import 'network/service_locator.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-   await setupLocator();
+  await setupLocator();
   runApp(MyApp());
 }
 
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Firebase Auth',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.deepOrange,
       ),
       onGenerateRoute: AppRouter.generateRoute,
       initialRoute: '/',  // Setze die initiale Route auf den LoginScreen

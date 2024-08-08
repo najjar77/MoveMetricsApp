@@ -20,27 +20,42 @@ class ProfileScreen extends StatelessWidget {
             builder: (_) => Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // Profilbild
                 CircleAvatar(
-                  radius: 60,
+                  radius: 80, // Größeres Bild
                   backgroundImage: NetworkImage(
                     userStore.avatar ?? 'https://via.placeholder.com/150',
                   ),
                   backgroundColor: Colors.grey[200],
                 ),
                 SizedBox(height: 20),
+                // Benutzername
                 Text(
                   userStore.username ?? 'Name nicht verfügbar',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 28, // Größere Schriftart
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 SizedBox(height: 10),
+                // Benutzer E-Mail
                 Text(
                   userStore.userId ?? 'Email nicht verfügbar',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 18, // Größere Schriftart
                     color: Colors.grey[700],
+                  ),
+                ),
+                SizedBox(height: 30),
+                // Profil bearbeiten
+                ElevatedButton(
+                  onPressed: () {
+                    // Logik zum Bearbeiten des Profils hinzufügen
+                  },
+                  child: Text('Profil bearbeiten'),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                    textStyle: TextStyle(fontSize: 18),
                   ),
                 ),
               ],

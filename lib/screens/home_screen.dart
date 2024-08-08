@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Move Metrics App'),
+        title: Text('Move Metrics'),
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
