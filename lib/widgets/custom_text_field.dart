@@ -16,7 +16,6 @@ class CustomTextField extends StatelessWidget {
     return TextField(
       controller: controller,
       obscureText: obscureText,
-
       decoration: InputDecoration(
         fillColor: Colors.white,
         labelText: labelText,

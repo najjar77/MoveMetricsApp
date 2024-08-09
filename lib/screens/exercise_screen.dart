@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../models/exercise_type.dart'; // Importiere das Enum
+import '../models/exercise_type.dart';
+import '../widgets/custom_text_field.dart'; // Importiere das CustomTextField
 
 class ExerciseScreen extends StatefulWidget {
   @override
@@ -9,7 +9,7 @@ class ExerciseScreen extends StatefulWidget {
 
 class _ExerciseScreenState extends State<ExerciseScreen> {
   final _formKey = GlobalKey<FormState>();
-  String _name = '';
+  final TextEditingController _nameController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
   ExerciseType? _selectedExerciseType;
   bool _isProteinTaken = false;
@@ -24,10 +24,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
     );
-    if (picked != null && picked != _selectedDate)
+    if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
       });
+    }
   }
 
   @override
@@ -43,32 +44,29 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
             key: _formKey,
             child: Column(
               children: [
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Exercise Name'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter the exercise name';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    _name = value!;
-                  },
+                CustomTextField(
+                  controller: _nameController,
+                  labelText: 'Exercise Name',
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Row(
                   children: [
                     Text('Date: ${_selectedDate.toLocal()}'.split(' ')[0]),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     ElevatedButton(
                       onPressed: () => _selectDate(context),
-                      child: Text('Select date'),
+                      child: const Text('Select date'),
                     ),
                   ],
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 DropdownButtonFormField<ExerciseType>(
-                  decoration: InputDecoration(labelText: 'Exercise Type'),
+                  decoration: InputDecoration(
+                    labelText: 'Exercise Type',
+                    filled: true,
+                    fillColor: Colors.white, // Setze den Hintergrund auf Weiß
+                    border: OutlineInputBorder(),
+                  ),
                   items: ExerciseType.values.map((ExerciseType type) {
                     return DropdownMenuItem<ExerciseType>(
                       value: type,
@@ -82,9 +80,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   },
                   validator: (value) => value == null ? 'Please select an exercise type' : null,
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 CheckboxListTile(
-                  title: Text('Protein'),
+                  title: const Text('Protein'),
                   value: _isProteinTaken,
                   onChanged: (bool? value) {
                     setState(() {
@@ -93,7 +91,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   },
                 ),
                 CheckboxListTile(
-                  title: Text('Creatine'),
+                  title: const Text('Creatine'),
                   value: _isCreatineTaken,
                   onChanged: (bool? value) {
                     setState(() {
@@ -102,7 +100,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   },
                 ),
                 CheckboxListTile(
-                  title: Text('BCAA'),
+                  title: const Text('BCAA'),
                   value: _isBcaaTaken,
                   onChanged: (bool? value) {
                     setState(() {
@@ -111,7 +109,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   },
                 ),
                 CheckboxListTile(
-                  title: Text('Vitamins'),
+                  title: const Text('Vitamins'),
                   value: _isVitaminTaken,
                   onChanged: (bool? value) {
                     setState(() {
@@ -119,7 +117,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     });
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
@@ -128,7 +126,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                       Navigator.pop(context);
                     }
                   },
-                  child: Text('Save Exercise'),
+                  child: const Text('Save Exercise'),
                 ),
               ],
             ),
