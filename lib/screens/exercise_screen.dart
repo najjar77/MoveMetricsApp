@@ -34,7 +34,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Exercise Entry'),
+        title: const Text('Exercise Entry'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

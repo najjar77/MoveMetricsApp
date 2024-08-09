@@ -11,10 +11,6 @@ class ListScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Inhalt der ListScreen',
-              style: TextStyle(fontSize: 18),
-            ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {

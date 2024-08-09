@@ -11,6 +11,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);        
+    final ColorScheme colorScheme = theme.colorScheme;
+
+    
     return BottomNavigationBar(
       items: [
         _buildBottomNavigationBarItem(
@@ -31,8 +35,9 @@ class CustomBottomNavigationBar extends StatelessWidget {
         ),
       ],
       currentIndex: selectedIndex,
-      selectedItemColor: Color(0xFF1A535C),
-      unselectedItemColor: Colors.grey,
+      selectedItemColor: colorScheme.primary,
+      unselectedItemColor: colorScheme.onSurface.withOpacity(0.6),
+      backgroundColor: colorScheme.background,
       onTap: onItemTapped,
     );
   }
