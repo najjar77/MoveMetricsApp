@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'screens/login_screen.dart';
 import 'screens/signup_screen.dart';
-import 'screens/home_screen.dart';  // Importiere den HomeScreen
+import 'screens/home_screen.dart'; 
+
+import 'screens/exercise_screen.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -11,7 +13,9 @@ class AppRouter {
       case '/signup':
         return MaterialPageRoute(builder: (_) => SignupScreen());
       case '/home':
-        return MaterialPageRoute(builder: (_) => HomeScreen());  // Verwende den HomeScreen als Hauptbildschirm
+        return MaterialPageRoute(builder: (_) => HomeScreen()); 
+      case '/exercise':
+        return MaterialPageRoute(builder: (_) => ExerciseScreen()); 
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

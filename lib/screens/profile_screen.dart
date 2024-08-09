@@ -40,49 +40,52 @@ class ProfileScreen extends StatelessWidget {
         title: Text('Profil'),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Observer(
-          builder: (_) => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Profilbild
-              CircleAvatar(
-                radius: 80, // Größeres Bild
-                backgroundImage: _getAvatarImage(userStore.avatar),
-                backgroundColor: Colors.grey[200],
-              ),
-              SizedBox(height: 20),
-              // Benutzername
-              Text(
-                userStore.username ?? 'Name nicht verfügbar',
-                style: TextStyle(
-                  fontSize: 28, // Größere Schriftart
-                  fontWeight: FontWeight.bold,
+      body: Observer(
+        builder: (context) => Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center, // Zentrieren des Inhalts
+              children: [
+                // Profilbild
+                CircleAvatar(
+                  radius: 80, // Größeres Bild
+                  backgroundImage: _getAvatarImage(userStore.avatar),
+                  backgroundColor: Colors.grey[200],
                 ),
-              ),
-              SizedBox(height: 10),
-              // Benutzer E-Mail
-              Text(
-                userStore.userId ?? 'Email nicht verfügbar',
-                style: TextStyle(
-                  fontSize: 18, // Größere Schriftart
-                  color: Colors.grey[700],
+                SizedBox(height: 20),
+                // Benutzername
+                Text(
+                  userStore.username ?? 'Name nicht verfügbar',
+                  style: TextStyle(
+                    fontSize: 28, // Größere Schriftart
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              SizedBox(height: 30),
-              // Profil bearbeiten
-              ElevatedButton(
-                onPressed: () {
-                  _updateAvatar(context);
-                },
-                child: Text('Profilbild ändern'),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                  textStyle: TextStyle(fontSize: 18),
+                SizedBox(height: 10),
+                // Benutzer E-Mail
+                Text(
+                  userStore.userId ?? 'Email nicht verfügbar',
+                  style: TextStyle(
+                    fontSize: 18, // Größere Schriftart
+                    color: Colors.grey[700],
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(height: 30),
+                // Profil bearbeiten
+                ElevatedButton(
+                  onPressed: () {
+                    _updateAvatar(context);
+                  },
+                  child: Text('Profilbild ändern'),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                    textStyle: TextStyle(fontSize: 18),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
