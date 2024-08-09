@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:move_metrics_app/design/theme.dart';
 import 'app_router.dart';
 import 'network/service_locator.dart';
 
@@ -15,11 +16,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Firebase Auth',
-      theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
-      ),
+      theme: appTheme, // Verwende das importierte Theme
       onGenerateRoute: AppRouter.generateRoute,
-      initialRoute: '/',  // Setze die initiale Route auf den LoginScreen
+      initialRoute: '/', 
     );
   }
 }
