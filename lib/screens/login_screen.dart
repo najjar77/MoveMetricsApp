@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../network/authentication_service.dart';  // Aktualisierte Import-Pfad
+import '../server/authentication_service.dart';  // Aktualisierte Import-Pfad
 import '../widgets/custom_text_field.dart';
 import '../widgets/custom_button.dart';
 

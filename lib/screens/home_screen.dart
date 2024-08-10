@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../network/authentication_service.dart';
+import '../server/authentication_service.dart';
 import '../widgets/custom_bottom_navigation_bar.dart'; // Importiere das benutzerdefinierte Widget
 import 'profile_screen.dart';
 import 'statistic_screen.dart';

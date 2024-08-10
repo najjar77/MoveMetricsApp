@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import '../stores/user_store.dart';
-import '../network/service_locator.dart';
-import '../network/db_services.dart';
+import '../server/service_locator.dart';
+import '../server/db_services.dart';
 import 'avatar_selection_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
