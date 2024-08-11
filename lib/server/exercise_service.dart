@@ -12,7 +12,7 @@ class ExerciseService {
     }
   }
 
-  Future<List<ExerciseEntry>> getExerciseEntries() async {
+  Future<List<ExerciseEntry>> getAllExerciseEntries() async {
     try {
       QuerySnapshot snapshot = await _firestore.collection('exercises').get();
       return snapshot.docs.map((doc) {
@@ -24,9 +24,25 @@ class ExerciseService {
     }
   }
 
+  Future<List<ExerciseEntry>> getExerciseEntriesByUid(String uid) async {
+    try {
+      QuerySnapshot snapshot = await _firestore
+          .collection('exercises')
+          .where('uid', isEqualTo: uid)
+          .get();
+      return snapshot.docs.map((doc) {
+        return ExerciseEntry.fromMap(doc.data() as Map<String, dynamic>, doc.id);
+      }).toList();
+    } catch (e) {
+      print('Fehler beim Laden der Benutzerübungseinträge: $e');
+      return [];
+    }
+  }
+
   Future<void> deleteExerciseEntry(String id) async {
     try {
       await _firestore.collection('exercises').doc(id).delete();
+      print('Übungseintrag gelöscht');
     } catch (e) {
       print('Fehler beim Löschen des Übungseintrags: $e');
     }

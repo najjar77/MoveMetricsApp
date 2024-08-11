@@ -15,22 +15,38 @@ abstract class _ExerciseStore with Store {
   @action
   Future<void> addExercise(ExerciseEntry exercise) async {
     try {
-      await _firestore.collection('exercises').doc(exercise.id).set(exercise.toMap());
-      exercises.add(exercise);
+      final docRef = _firestore.collection('exercises').doc(); // Generiere eine neue ID
+      final exerciseWithId = ExerciseEntry(
+        id: docRef.id, // Verwende die generierte ID
+        uid: exercise.uid, // Behalte die Benutzer-ID bei
+        name: exercise.name,
+        date: exercise.date,
+        exerciseTypes: exercise.exerciseTypes,
+        details: exercise.details,
+        vitamins: exercise.vitamins,
+        supplements: exercise.supplements,
+      );
+      await docRef.set(exerciseWithId.toMap()); // Speichere die Daten
+      exercises.add(exerciseWithId);
     } catch (e) {
       print('Fehler beim Hinzufügen des Übungseintrags: $e');
     }
   }
 
   @action
-  Future<void> loadExercises() async {
-    try {
-      QuerySnapshot snapshot = await _firestore.collection('exercises').get();
-      exercises = ObservableList<ExerciseEntry>.of(snapshot.docs.map((doc) {
-        return ExerciseEntry.fromMap(doc.data() as Map<String, dynamic>, doc.id);
-      }).toList());
-    } catch (e) {
-      print('Fehler beim Laden der Übungseinträge: $e');
-    }
+Future<void> loadExercises(String uid) async {
+  try {
+    QuerySnapshot snapshot = await _firestore
+        .collection('exercises')
+        .where('uid', isEqualTo: uid)
+        .get();
+
+    exercises = ObservableList<ExerciseEntry>.of(snapshot.docs.map((doc) {
+      return ExerciseEntry.fromMap(doc.data() as Map<String, dynamic>, doc.id);
+    }).toList());
+  } catch (e) {
+    print('Fehler beim Laden der Übungseinträge: $e');
   }
+}
+
 }

@@ -1,17 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'exercise_type.dart';
+import '../models/exercise_type.dart';
 
 class ExerciseEntry {
-  String id; // Eindeutige ID für den Eintrag
-  String name;
-  DateTime date;
-  List<ExerciseType> exerciseTypes;
-  Map<String, dynamic> details; // Dynamische Details wie Zeit, Distanz, etc.
-  Map<String, bool> vitamins; // Vitamine (Vitamin C, D, etc.)
-  Map<String, dynamic> supplements; // Supplements (Protein, Creatine, etc.)
+  final String id; // Firebase-generierte ID
+  final String uid; // Benutzer-ID
+  final String name;
+  final DateTime date;
+  final List<ExerciseType> exerciseTypes;
+  final Map<String, dynamic> details;
+  final Map<String, bool> vitamins;
+  final Map<String, int> supplements;
 
   ExerciseEntry({
     required this.id,
+    required this.uid,
     required this.name,
     required this.date,
     required this.exerciseTypes,
@@ -20,31 +22,32 @@ class ExerciseEntry {
     required this.supplements,
   });
 
-  // Konvertiert das Objekt in ein Map, um es in Firebase zu speichern
+  // Konvertiere das ExerciseEntry in ein Map für Firestore
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'uid': uid,
       'name': name,
-      'date': date.toIso8601String(),
-      'exerciseTypes': exerciseTypes.map((type) => type.toString()).toList(),
+      'date': date,
+      'exerciseTypes': exerciseTypes.map((e) => e.name).toList(),
       'details': details,
       'vitamins': vitamins,
       'supplements': supplements,
     };
   }
 
-  // Erstellt ein Objekt aus einer Firebase-Dokument-Snapshot
-  factory ExerciseEntry.fromMap(Map<String, dynamic> map, String id) {
+  // Erstelle ein ExerciseEntry aus einem Firestore-Dokument
+  static ExerciseEntry fromMap(Map<String, dynamic> map, String id) {
     return ExerciseEntry(
       id: id,
-      name: map['name'],
-      date: DateTime.parse(map['date']),
+      uid: map['uid'] as String,
+      name: map['name'] as String,
+      date: (map['date'] as Timestamp).toDate(),
       exerciseTypes: (map['exerciseTypes'] as List)
-          .map((type) => ExerciseType.values.firstWhere((e) => e.toString() == type))
+          .map((e) => ExerciseType.values.firstWhere((type) => type.name == e))
           .toList(),
       details: Map<String, dynamic>.from(map['details']),
       vitamins: Map<String, bool>.from(map['vitamins']),
-      supplements: Map<String, dynamic>.from(map['supplements']),
+      supplements: Map<String, int>.from(map['supplements']),
     );
   }
 }

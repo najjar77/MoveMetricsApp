@@ -37,8 +37,8 @@ mixin _$ExerciseStore on _ExerciseStore, Store {
       AsyncAction('_ExerciseStore.loadExercises', context: context);
 
   @override
-  Future<void> loadExercises() {
-    return _$loadExercisesAsyncAction.run(() => super.loadExercises());
+  Future<void> loadExercises(String uid) {
+    return _$loadExercisesAsyncAction.run(() => super.loadExercises(uid));
   }
 
   @override

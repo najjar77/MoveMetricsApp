@@ -21,6 +21,14 @@ class _HomeScreenState extends State<HomeScreen> {
     ProfileScreen(),
   ];
 
+  // Liste der Titel für die App-Bar
+  final List<String> _titles = [
+    'Home',
+    'My Exercises',
+    'Statistics',
+    'Profile',
+  ];
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -36,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Move Metrics'),
+        title: Text(_titles[_selectedIndex]), // Dynamischer Titel basierend auf dem ausgewählten Index
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
