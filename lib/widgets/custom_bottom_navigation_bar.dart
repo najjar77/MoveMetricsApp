@@ -23,11 +23,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
         ),
         _buildBottomNavigationBarItem(
           icon: Icons.list,
-          label: 'Liste',
+          label: 'My Data',
         ),
         _buildBottomNavigationBarItem(
           icon: Icons.bar_chart,
-          label: 'Statistik',
+          label: 'Statistics',
         ),
         _buildBottomNavigationBarItem(
           icon: Icons.person,

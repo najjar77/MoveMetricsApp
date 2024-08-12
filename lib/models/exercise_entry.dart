@@ -27,7 +27,7 @@ class ExerciseEntry {
     return {
       'uid': uid,
       'name': name,
-      'date': Timestamp.fromDate(date), // Konvertiere DateTime in Timestamp
+      'date': date != null ? Timestamp.fromDate(date) : null, // Konvertiere DateTime in Timestamp
       'exerciseTypes': exerciseTypes.isNotEmpty 
           ? exerciseTypes.map((e) => e.name).toList()
           : null, // Speichere nichts, wenn nicht ausgewählt
@@ -58,6 +58,9 @@ class ExerciseEntry {
   }
 
   static DateTime _parseDate(dynamic date) {
+    if (date == null) {
+      return DateTime.now(); // Standardwert oder eine andere geeignete Behandlung
+    }
     if (date is Timestamp) {
       return date.toDate(); // Wenn es ein Timestamp ist, konvertiere es in DateTime
     } else if (date is String) {
