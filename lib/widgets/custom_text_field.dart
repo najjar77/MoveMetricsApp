@@ -6,7 +6,7 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
   final TextInputType? textInputType;
   final TextInputAction? textInputAction;
-  final VoidCallback? onEditingComplete;
+  final void Function(String)? onChanged; // Add this line
 
   CustomTextField({
     required this.controller,
@@ -14,7 +14,7 @@ class CustomTextField extends StatelessWidget {
     this.obscureText = false,
     this.textInputType,
     this.textInputAction,
-    this.onEditingComplete,
+    this.onChanged, // Add this line
   });
 
   @override
@@ -22,9 +22,9 @@ class CustomTextField extends StatelessWidget {
     return TextField(
       controller: controller,
       keyboardType: textInputType,
-      obscureText: obscureText,
       textInputAction: textInputAction,
-      onEditingComplete: onEditingComplete,
+      obscureText: obscureText,
+      onChanged: onChanged, // Add this line
       decoration: InputDecoration(
         fillColor: Colors.white,
         labelText: labelText,
