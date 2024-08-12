@@ -57,7 +57,7 @@ class _CustomListState extends State<CustomList> {
                   return ListTile(
                     title: Text(exercise.name),
                     subtitle: Text(
-                      '${exercise.date.toLocal().toString().split(' ')[0]} - ${exercise.exerciseTypes.map((e) => e.name).join(', ')}',
+                      '${exercise.date.day.toString().padLeft(2, '0')}-${exercise.date.month.toString().padLeft(2, '0')}-${exercise.date.year.toString()}  ${exercise.exerciseTypes.map((e) => e.name).join(', ')}',
                     ),
                     trailing: isSelected
                         ? Icon(Icons.check_box, color: Theme.of(context).primaryColor)

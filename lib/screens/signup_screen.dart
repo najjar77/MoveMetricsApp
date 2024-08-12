@@ -41,6 +41,7 @@ class _SignupScreenState extends State<SignupScreen> {
               controller: _emailController,
               labelText: 'Email',
             ),
+            SizedBox(height: 16),
             CustomTextField(
               controller: _passwordController,
               labelText: 'Password',

@@ -31,7 +31,7 @@ class ExerciseFormSection extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                'Date: ${selectedDate.toLocal().toString().split(' ')[0]}',
+                'Date: ${selectedDate.day}-${selectedDate.month}-${selectedDate.year}',
                 style: TextStyle(fontSize: 16),
               ),
             ),
