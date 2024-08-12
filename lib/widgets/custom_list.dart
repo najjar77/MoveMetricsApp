@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import '../models/exercise_entry.dart';
-import '../server/exercise_service.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
+import '../stores/exercise_store.dart';
 
 class CustomList extends StatefulWidget {
   @override
@@ -9,24 +9,7 @@ class CustomList extends StatefulWidget {
 }
 
 class _CustomListState extends State<CustomList> {
-  final ExerciseService _exerciseService = ExerciseService();
-  late Future<List<ExerciseEntry>> _exercisesFuture;
-  final List<String> _selectedExerciseIds = []; // Liste der ausgewählten IDs
-
-  @override
-  void initState() {
-    super.initState();
-    _loadExercises();
-  }
-
-  void _loadExercises() {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      setState(() {
-        _exercisesFuture = _exerciseService.getExerciseEntriesByUid(user.uid);
-      });
-    }
-  }
+  List<String> _selectedExerciseIds = []; // Liste der ausgewählten Übungseintrags-IDs
 
   void _toggleSelection(String id) {
     setState(() {
@@ -38,60 +21,63 @@ class _CustomListState extends State<CustomList> {
     });
   }
 
-  void _deleteSelectedExercises() async {
-    for (String id in _selectedExerciseIds) {
-      await _exerciseService.deleteExerciseEntry(id);
+  void _deleteSelectedExercises() {
+    final exerciseStore = Provider.of<ExerciseStore>(context, listen: false);
+    for (var id in _selectedExerciseIds) {
+      exerciseStore.deleteExercise(id);
     }
-    _selectedExerciseIds.clear(); // Auswahl leeren
-    _loadExercises(); // Liste nach dem Löschen neu laden
+    setState(() {
+      _selectedExerciseIds.clear(); // Auswahl nach dem Löschen leeren
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: FutureBuilder<List<ExerciseEntry>>(
-            future: _exercisesFuture,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error loading exercises'));
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return Center(child: Text('No exercises found'));
-              } else {
-                final exercises = snapshot.data!;
-                return ListView.builder(
-                  itemCount: exercises.length,
-                  itemBuilder: (context, index) {
-                    final exercise = exercises[index];
-                    final isSelected = _selectedExerciseIds.contains(exercise.id);
-                    return ListTile(
-                      title: Text(exercise.name),
-                      subtitle: Text(exercise.date.toLocal().toString()),
-                      trailing: Icon(
-                        isSelected ? Icons.check_box : Icons.check_box_outline_blank,
-                        color: isSelected ? Colors.green : null,
-                      ),
-                      onTap: () => _toggleSelection(exercise.id),
-                      onLongPress: () => _toggleSelection(exercise.id), // Lang drücken zum Auswählen
-                    );
-                  },
-                );
-              }
-            },
-          ),
-        ),
-        if (_selectedExerciseIds.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              onPressed: _deleteSelectedExercises,
-              child: Text('Delete Selected (${_selectedExerciseIds.length})'),
+    final exerciseStore = Provider.of<ExerciseStore>(context);
+
+    return Observer(
+      builder: (_) {
+        final exercises = exerciseStore.exercises;
+
+        if (exercises.isEmpty) {
+          return Center(
+            child: Text('No exercises found.'),
+          );
+        }
+
+        return Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: exercises.length,
+                itemBuilder: (context, index) {
+                  final exercise = exercises[index];
+                  final isSelected = _selectedExerciseIds.contains(exercise.id);
+
+                  return ListTile(
+                    title: Text(exercise.name),
+                    subtitle: Text(
+                      '${exercise.date.toLocal().toString().split(' ')[0]} - ${exercise.exerciseTypes.map((e) => e.name).join(', ')}',
+                    ),
+                    trailing: isSelected
+                        ? Icon(Icons.check_box, color: Theme.of(context).primaryColor)
+                        : Icon(Icons.check_box_outline_blank),
+                    onTap: () => _toggleSelection(exercise.id),
+                  );
+                },
+              ),
             ),
-          ),
-      ],
+            if (_selectedExerciseIds.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: _deleteSelectedExercises,
+                  child: Text('Delete Selected (${_selectedExerciseIds.length})'),
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 }

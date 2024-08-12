@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import '../widgets/custom_list.dart'; // Importiere das CustomList-Widget
+import '../widgets/custom_list.dart';
 
 class ListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        //title: Text('My Exercises'),
-      ),
-      body: CustomList(), // Verwende das CustomList-Widget
+        ),
+      body: CustomList(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/exercise'); // Navigation zum ExerciseScreen
+          Navigator.pushNamed(context, '/exercise');
         },
         child: Icon(Icons.add),
       ),
