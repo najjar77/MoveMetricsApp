@@ -28,11 +28,12 @@ class ExerciseFormSection extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Date: ${selectedDate.toLocal().toString().split(' ')[0]}',
-              style: TextStyle(fontSize: 16),
+            Expanded(
+              child: Text(
+                'Date: ${selectedDate.toLocal().toString().split(' ')[0]}',
+                style: TextStyle(fontSize: 16),
+              ),
             ),
             ElevatedButton(
               onPressed: selectDateCallback,
@@ -55,9 +56,12 @@ class ExerciseFormSection extends StatelessWidget {
               items: [
                 DropdownMenuItem(
                   value: getDropdownText(),
-                  child: Text(
-                    getDropdownText(),
-                    overflow: TextOverflow.ellipsis,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.7, // Setze eine maximale Breite
+                    child: Text(
+                      getDropdownText(),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
               ],

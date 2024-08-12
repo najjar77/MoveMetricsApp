@@ -17,25 +17,26 @@ abstract class _ExerciseStore with Store {
   }
 
   @action
-  Future<void> addExercise(ExerciseEntry exercise) async {
+Future<void> addExercise(ExerciseEntry exercise) async {
     try {
-      final docRef = _firestore.collection('exercises').doc();
-      final exerciseWithId = ExerciseEntry(
-        id: docRef.id,
-        uid: exercise.uid,
-        name: exercise.name,
-        date: exercise.date,
-        exerciseTypes: exercise.exerciseTypes,
-        details: exercise.details,
-        vitamins: exercise.vitamins,
-        supplements: exercise.supplements,
-      );
-      await docRef.set(exerciseWithId.toMap());
-      exercises.add(exerciseWithId);
+        final docRef = _firestore.collection('exercises').doc();
+        final exerciseWithId = ExerciseEntry(
+            id: docRef.id,
+            uid: exercise.uid,
+            name: exercise.name,
+            date: exercise.date,
+            exerciseTypes: exercise.exerciseTypes,
+            details: exercise.details,
+            vitamins: exercise.vitamins,
+            supplements: exercise.supplements,
+        );
+        await docRef.set(exerciseWithId.toMap());
+        // Kein manuelles Hinzufügen mehr hier
     } catch (e) {
-      print('Fehler beim Hinzufügen des Übungseintrags: $e');
+        print('Fehler beim Hinzufügen des Übungseintrags: $e');
     }
-  }
+}
+
 
   @action
   Future<void> deleteExercise(String id) async {
