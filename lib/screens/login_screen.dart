@@ -38,10 +38,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      
-      body: SingleChildScrollView(
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: SafeArea(
+      child: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -80,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Text('Don\'t have an account? Sign up'),
             ),
           ],
+        ),
         ),
       ),
     );
