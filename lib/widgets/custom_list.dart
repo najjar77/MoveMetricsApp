@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import '../stores/exercise_store.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CustomList extends StatefulWidget {
   @override
@@ -10,6 +11,16 @@ class CustomList extends StatefulWidget {
 
 class _CustomListState extends State<CustomList> {
   List<String> _selectedExerciseIds = []; // Liste der ausgewählten Übungseintrags-IDs
+
+  @override
+  void initState() {
+    super.initState();
+    final exerciseStore = Provider.of<ExerciseStore>(context, listen: false);
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      exerciseStore.loadExercisesByUID(user.uid); // Nur Übungen des aktuellen Benutzers laden
+    }
+  }
 
   void _toggleSelection(String id) {
     setState(() {

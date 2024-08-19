@@ -41,23 +41,15 @@ mixin _$ExerciseStore on _ExerciseStore, Store {
     return _$deleteExerciseAsyncAction.run(() => super.deleteExercise(id));
   }
 
-  late final _$loadExercisesAsyncAction =
-      AsyncAction('_ExerciseStore.loadExercises', context: context);
-
-  @override
-  Future<void> loadExercises(String uid) {
-    return _$loadExercisesAsyncAction.run(() => super.loadExercises(uid));
-  }
-
   late final _$_ExerciseStoreActionController =
       ActionController(name: '_ExerciseStore', context: context);
 
   @override
-  void _listenToExercises() {
+  void loadExercisesByUID(String uid) {
     final _$actionInfo = _$_ExerciseStoreActionController.startAction(
-        name: '_ExerciseStore._listenToExercises');
+        name: '_ExerciseStore.loadExercisesByUID');
     try {
-      return super._listenToExercises();
+      return super.loadExercisesByUID(uid);
     } finally {
       _$_ExerciseStoreActionController.endAction(_$actionInfo);
     }
