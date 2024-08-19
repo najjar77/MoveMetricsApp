@@ -10,12 +10,12 @@ import '../widgets/dynamic_fields_section.dart';
 import '../widgets/vitamin_section.dart';
 import '../widgets/supplement_section.dart';
 
-class ExerciseScreen extends StatefulWidget {
+class ExerciseFormScreen extends StatefulWidget {
   @override
-  _ExerciseScreenState createState() => _ExerciseScreenState();
+  _ExerciseFormScreenState createState() => _ExerciseFormScreenState();
 }
 
-class _ExerciseScreenState extends State<ExerciseScreen> {
+class _ExerciseFormScreenState extends State<ExerciseFormScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
