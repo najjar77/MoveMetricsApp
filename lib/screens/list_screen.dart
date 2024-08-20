@@ -14,6 +14,8 @@ class ListScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pushNamed(context, '/exercise');
             },
+            backgroundColor: Theme.of(context).primaryColor, // Verwende die primäre Farbe aus dem Theme
+            foregroundColor: Colors.white, // Setze die Farbe des Icons auf Weiß
             child: Icon(Icons.add),
           ),
         ),

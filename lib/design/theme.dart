@@ -4,6 +4,7 @@ final ThemeData appTheme = ThemeData(
   useMaterial3: true, 
   colorScheme: ColorScheme.fromSeed(
     seedColor: Color(0xFF1A535C),
+    secondary: Color(0xFF3E7B89),
   ),
   primaryColor: Color(0xFF1A535C),
   elevatedButtonTheme: ElevatedButtonThemeData(

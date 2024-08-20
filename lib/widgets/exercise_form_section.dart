@@ -37,6 +37,9 @@ class ExerciseFormSection extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: selectDateCallback,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.secondary, // Setze die Hintergrundfarbe auf die sekundäre Farbe
+              ),
               child: const Text('Select date'),
             ),
           ],

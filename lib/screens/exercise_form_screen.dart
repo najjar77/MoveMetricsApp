@@ -201,9 +201,17 @@ class _ExerciseFormScreenState extends State<ExerciseFormScreen> {
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton(
-                  onPressed: _saveExercise,
-                  child: Text('Save Exercise'),
-                ),
+  onPressed: _saveExercise,
+  child: Row(
+    mainAxisSize: MainAxisSize.min, // Ensures the button shrinks to fit the content
+    children: [
+      Icon(Icons.check), // Add the save icon
+      SizedBox(width: 8), // Add some spacing between the icon and the text
+      Text('Save Exercise'),
+    ],
+  ),
+),
+
               ],
             ),
           ),
