@@ -224,6 +224,42 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "flutter_secure_storage",
+      "rootUri": "file:///Users/amiin/.pub-cache/hosted/pub.dev/flutter_secure_storage-5.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_secure_storage_linux",
+      "rootUri": "file:///Users/amiin/.pub-cache/hosted/pub.dev/flutter_secure_storage_linux-1.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_secure_storage_macos",
+      "rootUri": "file:///Users/amiin/.pub-cache/hosted/pub.dev/flutter_secure_storage_macos-1.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_secure_storage_platform_interface",
+      "rootUri": "file:///Users/amiin/.pub-cache/hosted/pub.dev/flutter_secure_storage_platform_interface-1.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_secure_storage_web",
+      "rootUri": "file:///Users/amiin/.pub-cache/hosted/pub.dev/flutter_secure_storage_web-1.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_secure_storage_windows",
+      "rootUri": "file:///Users/amiin/.pub-cache/hosted/pub.dev/flutter_secure_storage_windows-1.1.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///Users/amiin/Documents/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -297,9 +333,9 @@
     },
     {
       "name": "http",
-      "rootUri": "file:///Users/amiin/.pub-cache/hosted/pub.dev/http-1.2.2",
+      "rootUri": "file:///Users/amiin/.pub-cache/hosted/pub.dev/http-0.13.6",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "2.19"
     },
     {
       "name": "http_multi_server",
@@ -321,9 +357,9 @@
     },
     {
       "name": "js",
-      "rootUri": "file:///Users/amiin/.pub-cache/hosted/pub.dev/js-0.7.1",
+      "rootUri": "file:///Users/amiin/.pub-cache/hosted/pub.dev/js-0.6.7",
       "packageUri": "lib/",
-      "languageVersion": "3.1"
+      "languageVersion": "2.19"
     },
     {
       "name": "json_annotation",
@@ -566,7 +602,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-08-09T23:08:38.575327Z",
+  "generated": "2024-08-30T12:02:00.219473Z",
   "generator": "pub",
   "generatorVersion": "3.3.4"
 }
